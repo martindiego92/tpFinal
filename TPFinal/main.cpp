@@ -1,9 +1,14 @@
-#include <stdio.h>
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include "funciones.h"
+#include "funciones.c"
 
 
 
 int main()
 {
-    printf("Hello world");
+    verificarArchivos();
+    verificarArchivos();
     return 0;
 }
