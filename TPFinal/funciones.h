@@ -3,14 +3,14 @@
 
 typedef char palabra[30];
 typedef char stringpat[8];
-struct vendedor
+typedef struct
 {
     int IDVendedor;
     palabra ApellidoVendedor;
     float TasaRendimiento;
-};
+}Vendedor;
 
-struct poliza
+typedef struct
 {
     int NroPoliza;
     int IDVendedor;
@@ -19,14 +19,14 @@ struct poliza
     stringpat Patente;
     float ValoAsegurado;
 
-};
+}Poliza;
 
-struct Siniestro
+typedef struct
 {
     int IDSiniestro;
     int NroPoliza;
     float ValorSiniestrado;
-};
+}Siniestro;
 
 void verificarArchivos();
 void cargarDatos(FILE *archivo);
@@ -37,4 +37,5 @@ void listarInfo(FILE *archivo);
 void listarPolizasVendedor(palabra ApellidoVendedor);
 void endedoresAPremiar();
 void AseguradoPiedra();
+void menuCargaDatos();
 #endif // FUNCIONES_H_INCLUDED

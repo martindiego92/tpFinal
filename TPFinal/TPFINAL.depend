@@ -2,22 +2,19 @@
 1605101385 source:c:\users\martin\desktop\inspt\programacion1\tpfinal\main.cpp
 	<stdio.h>
 
-1605118651 source:c:\users\martin\desktop\inspt\programacion1\tp\tpfinal\funciones.c
+1605121120 source:c:\users\martin\desktop\inspt\programacion1\tp\tpfinal\funciones.c
 	<stdio.h>
 	<stdlib.h>
 	"funciones.h"
 
-1605116958 c:\users\martin\desktop\inspt\programacion1\tp\tpfinal\funciones.h
+1605122242 c:\users\martin\desktop\inspt\programacion1\tp\tpfinal\funciones.h
 
-1605118748 source:c:\users\martin\desktop\inspt\programacion1\tp\tpfinal\main.cpp
+1605121219 source:c:\users\martin\desktop\inspt\programacion1\tp\tpfinal\main.cpp
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"funciones.h"
 	"funciones.c"
 
-1605119803 c:\users\martin\desktop\inspt\programacion1\tp\tpfinal\funciones.c
-	<stdio.h>
-	<stdlib.h>
-	"funciones.h"
+1605122777 c:\users\martin\desktop\inspt\programacion1\tp\tpfinal\funciones.c
 

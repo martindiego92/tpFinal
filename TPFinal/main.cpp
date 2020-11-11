@@ -8,7 +8,8 @@
 
 int main()
 {
+      FILE *archivo;
     verificarArchivos();
-    verificarArchivos();
+    cargarDatos(archivo);
     return 0;
 }
