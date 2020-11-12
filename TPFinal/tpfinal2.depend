@@ -1,0 +1,22 @@
+# depslib dependency file v1.0
+1605196221 source:c:\users\martin\desktop\tpfinal2\funcionesc.cpp
+	<stdio.h>
+	<stdlib.h>
+	"funciones.h"
+	<string.h>
+
+1605196221 c:\users\martin\desktop\tpfinal2\funciones.h
+
+1605196535 source:c:\users\martin\desktop\tpfinal2\main.cpp
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"funciones.h"
+	"funcionesC.cpp"
+
+1605196221 c:\users\martin\desktop\tpfinal2\funcionesc.cpp
+	<stdio.h>
+	<stdlib.h>
+	"funciones.h"
+	<string.h>
+

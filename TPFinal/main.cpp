@@ -2,14 +2,15 @@
 #include<stdlib.h>
 #include<string.h>
 #include "funciones.h"
-#include "funciones.c"
-
+#include "funcionesC.cpp"
 
 
 int main()
+
 {
-      FILE *archivo;
+    FILE *archi;
+
     verificarArchivos();
-    cargarDatos(archivo);
+    listarInfo(archi);
     return 0;
 }
