@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include "funciones.h"
-
+#include<string.h>
 void verificarArchivos()
 {
 
@@ -70,6 +70,9 @@ void cargarDatos(FILE *archivo)
     switch(op)
     {
     case 1:
+        {
+
+
         Vendedor vendedor;
         archivo = fopen("archivos/Vendedores.dat","ab");
         printf("\n");
@@ -80,13 +83,30 @@ void cargarDatos(FILE *archivo)
 
         fwrite(&vendedor,sizeof(Vendedor),1,archivo);
         break;
-
+         }
     case 2:
+        {
+
+
         Poliza poliza;
-        archivo = fopen("archivos/Polizas.dat", "ab");
+        palabra apellido;
+        int idVendedor = 0;
+
+
         //despues valido
+        printf("Ingrese apellido del vendedor \n");
+        scanf("%s",&apellido);
+        idVendedor = validarVendedor(apellido);
+        if(idVendedor == -1)
+            {
+                printf("No existe vendedor \n");
+                //printf("Por favor ingrese nuevamente el apellido \n");
+                //scanf("%s",&apellido);
+                //idVendedor = validarVendedor(apellido);
+                break;
 
-
+            }
+        archivo = fopen("archivos/Polizas.dat", "ab");
         printf("Ingrese Nro de poliza: \n");
         scanf("%d", &poliza.NroPoliza);
 
@@ -107,13 +127,23 @@ void cargarDatos(FILE *archivo)
         fwrite(&poliza, sizeof(Poliza), 1, archivo);
 
         break;
-
+               }
     case 3:
-        Siniestro siniestro;
+        {
 
+
+        Siniestro siniestro;
+        int numPoliza;
         archivo = fopen("archivos/Siniestros.dat", "ab");
         printf("Indicar poliza de seguro del auto: \n");
-        scanf("%d", &siniestro.NroPoliza);
+
+        scanf("%d", &numPoliza);
+        if(validarPoliza(numPoliza) != 1)
+        {
+            printf("Numero de poliza no se encusntra\n");
+            break;
+
+        }
         printf("Ingrese id del siniestro \n ");
         scanf("%d", &siniestro.IDSiniestro);
 
@@ -127,5 +157,54 @@ void cargarDatos(FILE *archivo)
 
         break;
     }
+      }
     fclose(archivo);
 }
+
+int validarVendedor(palabra apellido)
+{
+     FILE *archivo;
+    Vendedor auxVendedor;
+    int check = -1;
+
+    archivo = fopen("archivos/Vendedores.dat", "rb");
+    fread(&auxVendedor, sizeof(Vendedor), 1, archivo);
+
+    while(!feof(archivo))
+    {
+        if(strcmp(apellido, auxVendedor.ApellidoVendedor) == 0)
+        {
+            fclose(archivo);
+            return auxVendedor.IDVendedor;
+
+        }
+        fread(&auxVendedor, sizeof(Vendedor), 1, archivo);
+    }
+
+    fclose(archivo);
+    return -1;
+}
+int validarPoliza(int num)
+{
+    FILE *archivo;
+    Poliza poliza;
+
+    archivo = fopen("archivos/Polizas.dat", "rb");
+    fread(&poliza, sizeof(Poliza), 1, archivo);
+
+    while(!feof(archivo))
+    {
+        if(num == poliza.NroPoliza)
+        {
+            fclose(archivo);
+            return 1;
+        }
+        fread(&poliza, sizeof(Poliza), 1, archivo);
+    }
+
+    fclose(archivo);
+    return -1;
+}
+
+
+
