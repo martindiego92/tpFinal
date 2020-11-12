@@ -206,5 +206,53 @@ int validarPoliza(int num)
     return -1;
 }
 
+float calcularTasaRendimiento(int id)
+{
+
+    FILE *pol;
+    FILE *sini;
+
+    float valorAsegurado = 0;
+    float valorSiniestrado = 0;
+    float capitalAsegurado = 0;
+    float total = 0;
+
+    Poliza poliza;
+    Siniestro siniestro;
+
+    pol = fopen("archivos/Polizas.dat", "rb");
+    sini = fopen("archivos/Siniestros.dat", "rb");
+
+    fread(&poliza, sizeof(Poliza), 1, pol);
+
+    while(!feof(pol))
+    {
+        if(id == poliza.IDVendedor)
+        {
+            valorAsegurado = poliza.ValoAsegurado + valorAsegurado;
+
+            fread(&siniestro, sizeof(Siniestro), 1, sini);
+            while(!feof(sini))
+            {
+                if(poliza.NroPoliza == siniestro.NroPoliza)
+                {
+                    valorSiniestrado = siniestro.ValorSiniestrado + valorSiniestrado;
+                }
+                fread(&siniestro, sizeof(Siniestro), 1, sini);
+            }
+        }
+
+        capitalAsegurado = poliza.ValoAsegurado + capitalAsegurado;
+        fread(&poliza, sizeof(Poliza), 1, pol);
+
+    }
+    fclose(pol);
+    fclose(sini);
+     total =  (float)(((valorAsegurado - valorSiniestrado)*100)/capitalAsegurado);
+    return total;
+
+}
+
+
 
 
