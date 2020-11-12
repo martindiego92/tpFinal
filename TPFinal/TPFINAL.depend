@@ -1,0 +1,56 @@
+# depslib dependency file v1.0
+1605101385 source:c:\users\martin\desktop\inspt\programacion1\tpfinal\main.cpp
+	<stdio.h>
+
+1605121120 source:c:\users\martin\desktop\inspt\programacion1\tp\tpfinal\funciones.c
+	<stdio.h>
+	<stdlib.h>
+	"funciones.h"
+
+1605122242 c:\users\martin\desktop\inspt\programacion1\tp\tpfinal\funciones.h
+
+1605121219 source:c:\users\martin\desktop\inspt\programacion1\tp\tpfinal\main.cpp
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"funciones.h"
+	"funciones.c"
+
+1605122777 c:\users\martin\desktop\inspt\programacion1\tp\tpfinal\funciones.c
+
+1605184905 source:c:\users\martin\desktop\inspt\programacion1\tp\tpfinal\funciones.cpp
+	<stdio.h>
+	<stdlib.h>
+	"funciones.h"
+	<string.h>
+
+1605195973 source:c:\users\martin\desktop\tprueba\tpfinal\tpfinal\funciones.cpp
+	<stdio.h>
+	<stdlib.h>
+	"funciones.h"
+	<string.h>
+
+1605195973 c:\users\martin\desktop\tprueba\tpfinal\tpfinal\funciones.h
+
+1605201361 source:c:\users\martin\desktop\tprueba\tpfinal\tpfinal\main.cpp
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"funciones.h"
+	"funcionesListar.cpp"
+	"funcionesCarga.cpp"
+
+1605195973 c:\users\martin\desktop\tprueba\tpfinal\tpfinal\funciones.c
+
+1605201603 c:\users\martin\desktop\tprueba\tpfinal\tpfinal\funcioneslistar.cpp
+	<stdio.h>
+	<stdlib.h>
+	"funciones.h"
+	<string.h>
+
+1605201502 c:\users\martin\desktop\tprueba\tpfinal\tpfinal\funcionescarga.cpp
+	<stdio.h>
+	<stdlib.h>
+	"funciones.h"
+	<string.h>
+

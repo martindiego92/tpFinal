@@ -2,7 +2,6 @@
 #include<stdlib.h>
 #include "funciones.h"
 #include<string.h>
-
 void verificarArchivos()
 {
 
@@ -107,7 +106,9 @@ void cargarDatos(FILE *archivo)
                 break;
 
             }
+
         archivo = fopen("archivos/Polizas.dat", "ab");
+        poliza.IDVendedor = idVendedor;
         printf("Ingrese Nro de poliza: \n");
         scanf("%d", &poliza.NroPoliza);
 
@@ -145,6 +146,7 @@ void cargarDatos(FILE *archivo)
             break;
 
         }
+        siniestro.NroPoliza = numPoliza;
         printf("Ingrese id del siniestro \n ");
         scanf("%d", &siniestro.IDSiniestro);
 
@@ -226,91 +228,35 @@ float calcularTasaRendimiento(int id)
 
     fread(&poliza, sizeof(Poliza), 1, pol);
 
-    while(!feof(pol))
+     while(!feof(pol))
     {
         if(id == poliza.IDVendedor)
         {
-            valorAsegurado = poliza.ValoAsegurado + valorAsegurado;
+            valorAsegurado += poliza.ValoAsegurado;
 
             fread(&siniestro, sizeof(Siniestro), 1, sini);
             while(!feof(sini))
             {
                 if(poliza.NroPoliza == siniestro.NroPoliza)
                 {
-                    valorSiniestrado = siniestro.ValorSiniestrado + valorSiniestrado;
+                    valorSiniestrado += siniestro.ValorSiniestrado;
                 }
                 fread(&siniestro, sizeof(Siniestro), 1, sini);
             }
         }
 
+
         capitalAsegurado = poliza.ValoAsegurado + capitalAsegurado;
         fread(&poliza, sizeof(Poliza), 1, pol);
-
     }
+
     fclose(pol);
     fclose(sini);
-     total =  (float)(((valorAsegurado - valorSiniestrado)*100)/capitalAsegurado);
+     total =  (((valorAsegurado - valorSiniestrado)*100)/capitalAsegurado);
     return total;
 
 }
-void listarInfo(FILE *archivo)
-{
-    int op;
 
-    printf("Ingrese una opcion \n");
-    printf("1-Info vendedores \n");
-    printf("2-Info Polizas \n");
-    printf("3-Info siniestros \n");
-    scanf("%d", &op);
-
-    switch(op)
-    {
-    case 1:
-        {
-            Vendedor vendedor;
-            archivo = fopen("archivos/Vendedores.dat", "rb");
-            fread(&vendedor, sizeof(Vendedor), 1, archivo);
-            printf("\nID\t Apellido\t Tasa de Rendimiento\n");
-            while(!feof(archivo))
-            {
-                printf("%d\t %s\t %.2f\n", vendedor.IDVendedor, vendedor.ApellidoVendedor, vendedor.TasaRendimiento);
-                fread(&vendedor, sizeof(Vendedor), 1, archivo);
-            }
-            fclose(archivo);
-            break;
-        }
-    case 2:
-        {
-            Poliza poliza;
-            archivo = fopen("archivos/Polizas.dat", "rb");
-            fread(&poliza, sizeof(Poliza), 1, archivo);
-            printf("\nNro Poliza\t ID Vendedor\t Asegurado\t Marca\t Patente\t Valor Asegurado\n");
-            while(!feof(archivo))
-            {
-                printf("%d\t %d\t %s\t %s\t %s\t %.2f\n", poliza.NroPoliza, poliza.IDVendedor, poliza.Asegurado, poliza.Marca, poliza.Patente, poliza.ValoAsegurado);
-                fread(&poliza, sizeof(Poliza), 1, archivo);
-            }
-            fclose(archivo);
-            break;
-        }
-    case 3:
-        {
-            Siniestro siniestro;
-            archivo = fopen("archivos/Siniestros.dat", "rb");
-            fread(&siniestro, sizeof(Siniestro), 1, archivo);
-            printf("\nID\t Nro Poliza\t Valor Siniestrado\n");
-            while(!feof(archivo))
-            {
-                printf("%d\t %d\t %.2f\t\n", siniestro.IDSiniestro, siniestro.NroPoliza, siniestro.ValorSiniestrado);
-                fread(&siniestro, sizeof(Siniestro), 1, archivo);
-            }
-            fclose(archivo);
-            break;
-        }
-    }
-
-
-}
 
 
 

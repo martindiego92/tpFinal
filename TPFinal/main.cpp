@@ -2,15 +2,22 @@
 #include<stdlib.h>
 #include<string.h>
 #include "funciones.h"
-#include "funcionesC.cpp"
+#include "funcionesListar.cpp"
+#include "funcionesCarga.cpp"
+
 
 
 int main()
-
 {
-    FILE *archi;
-
+      FILE *archivo;
     verificarArchivos();
-    listarInfo(archi);
+    for(int i = 0 ; i <3 ; i++)
+    {
+        //cargarDatos(archivo);
+    }
+
+    listarInfo(archivo);
+
+    printf("%f ",calcularTasaRendimiento(1));
     return 0;
 }
