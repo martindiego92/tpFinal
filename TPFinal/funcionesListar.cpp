@@ -65,3 +65,50 @@ void listarInfo(FILE *archivo)
 
 
 }
+void listarPolizasVendedor(palabra apellido)
+{
+    FILE *polizasArch;
+    FILE *sinietrosArch;
+    int id = validarVendedor(apellido);
+
+    if(id == -1)
+    {
+        printf("No se encontro apellido \n");
+    }
+    else
+    {
+        printf("Vendedor %s \n",apellido);
+        Poliza poliza;
+        polizasArch = fopen("archivos/Polizas.dat", "rb");
+        fread(&poliza, sizeof(Poliza), 1, polizasArch);
+        while(!feof(polizasArch))
+        {
+            if(poliza.IDVendedor == id)
+            {
+                    printf("NroPoliza |   ID Vendedor |   Asegurado |   Marca |   Patente |   ValorAsegurado \n");
+
+            printf("   %d            %d           %s         %s          %s        %.2f \n", poliza.NroPoliza, poliza.IDVendedor, poliza.Asegurado, poliza.Marca, poliza.Patente, poliza.ValoAsegurado);
+
+            Siniestro siniestro;
+            sinietrosArch = fopen("archivos/Siniestros.dat", "rb");
+            fread(&siniestro, sizeof(Siniestro), 1, sinietrosArch);
+             printf("ID    Nro Poliza     Valor Siniestrado   \n");
+            while(!feof(sinietrosArch))
+            {
+
+
+                if(poliza.NroPoliza == siniestro.NroPoliza)
+                {
+                printf("%d          %d           %.2f  \n", siniestro.IDSiniestro, siniestro.NroPoliza, siniestro.ValorSiniestrado);
+
+                }
+                  fread(&siniestro, sizeof(Siniestro), 1, sinietrosArch);
+            }
+
+
+            }
+            fread(&poliza, sizeof(Poliza), 1, polizasArch);
+        }
+    }
+
+}

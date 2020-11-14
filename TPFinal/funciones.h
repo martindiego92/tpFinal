@@ -3,11 +3,13 @@
 
 typedef char palabra[30];
 typedef char stringpat[8];
+
 typedef struct
 {
     int IDVendedor;
     palabra ApellidoVendedor;
     float TasaRendimiento;
+
 }Vendedor;
 
 typedef struct
@@ -26,6 +28,7 @@ typedef struct
     int IDSiniestro;
     int NroPoliza;
     float ValorSiniestrado;
+
 }Siniestro;
 
 void verificarArchivos();

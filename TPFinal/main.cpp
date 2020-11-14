@@ -16,8 +16,8 @@ int main()
         //cargarDatos(archivo);
     }
 
-    listarInfo(archivo);
+    //listarInfo(archivo);
 
-    printf("%f ",calcularTasaRendimiento(1));
+    listarPolizasVendedor("jorge");
     return 0;
 }
