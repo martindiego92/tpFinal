@@ -20,5 +20,6 @@ int main()
 
    // listarPolizasVendedor("jorge");
     vendedoresAPremiar();
+    AseguradoPiedra();
     return 0;
 }

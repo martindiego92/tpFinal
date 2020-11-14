@@ -120,7 +120,7 @@ void vendedoresAPremiar()
 {
     FILE *vendedoresArchi;
     Vendedor vendedor;
-
+    int cont = 0;
     vendedoresArchi = fopen("archivos/Vendedores.dat", "rb");
     fread(&vendedor, sizeof(Vendedor), 1, vendedoresArchi);
     printf("Vendedores a premiar \n");
@@ -130,9 +130,58 @@ void vendedoresAPremiar()
         if( id< 5 && id>0)
         {
             printf(" %d", vendedor.IDVendedor);
+            cont++;
         }
         fread(&vendedor, sizeof(Vendedor), 1, vendedoresArchi);
     }
     fclose(vendedoresArchi);
+    if(cont == 0)
+    {
+        printf("No hay vendedores para premiar \n");
+    }
+}
+void AseguradoPiedra()
+{
+    FILE *polizaArch;
+    FILE *siniestroArch;
+    float total = 0;
+    float maX = 0;
+    palabra asegurado;
+    int nrPoliza=0;
+    Poliza poliza;
+    Siniestro siniestro;
 
+    polizaArch = fopen("archivos/Polizas.dat", "rb");
+    fread(&poliza, sizeof(Poliza), 1, polizaArch);
+
+    while(!feof(polizaArch))
+    {
+        siniestroArch = fopen("archivos/Siniestros.dat", "rb");
+        fread(&siniestro, sizeof(Siniestro), 1, siniestroArch);
+
+        while(!feof(siniestroArch))
+        {
+            if(poliza.NroPoliza == siniestro.NroPoliza)
+            {
+                total = siniestro.ValorSiniestrado + total;
+            }
+
+            fread(&siniestro, sizeof(Siniestro), 1, siniestroArch);
+        }
+
+        fclose(siniestroArch);
+
+        if(total > maX)
+        {
+            strcpy(asegurado, poliza.Asegurado);
+            nrPoliza = poliza.NroPoliza;
+            maX = total;
+        }
+
+        fread(&poliza, sizeof(Poliza), 1, polizaArch);
+    }
+
+    fclose(polizaArch);
+    printf("Asegurado al que mas dinero debe pagarse \n");
+    printf("Asegurado : %s NrPoliza: %d  Total: %2.f $",asegurado,nrPoliza,maX);
 }
