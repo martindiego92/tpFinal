@@ -38,7 +38,7 @@ int validarPoliza(int NroPoliza);
 float calcularTasaRendimiento(int IDVendedor);
 void listarInfo(FILE *archivo);
 void listarPolizasVendedor(palabra ApellidoVendedor);
-void endedoresAPremiar();
+void vendedoresAPremiar();
 void AseguradoPiedra();
 void menuCargaDatos();
 #endif // FUNCIONES_H_INCLUDED

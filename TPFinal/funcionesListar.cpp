@@ -105,10 +105,34 @@ void listarPolizasVendedor(palabra apellido)
                   fread(&siniestro, sizeof(Siniestro), 1, sinietrosArch);
             }
 
+                fclose(sinietrosArch);
+
 
             }
             fread(&poliza, sizeof(Poliza), 1, polizasArch);
+
         }
+        fclose(polizasArch);
     }
+
+}
+void vendedoresAPremiar()
+{
+    FILE *vendedoresArchi;
+    Vendedor vendedor;
+
+    vendedoresArchi = fopen("archivos/Vendedores.dat", "rb");
+    fread(&vendedor, sizeof(Vendedor), 1, vendedoresArchi);
+    printf("Vendedores a premiar \n");
+    while(!feof(vendedoresArchi))
+    {
+        int id = calcularTasaRendimiento(vendedor.IDVendedor);
+        if( id< 5 && id>0)
+        {
+            printf(" %d", vendedor.IDVendedor);
+        }
+        fread(&vendedor, sizeof(Vendedor), 1, vendedoresArchi);
+    }
+    fclose(vendedoresArchi);
 
 }

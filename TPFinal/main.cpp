@@ -18,6 +18,7 @@ int main()
 
     //listarInfo(archivo);
 
-    listarPolizasVendedor("jorge");
+   // listarPolizasVendedor("jorge");
+    vendedoresAPremiar();
     return 0;
 }
