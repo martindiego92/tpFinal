@@ -30,7 +30,7 @@ typedef struct
     float ValorSiniestrado;
 
 }Siniestro;
-
+void dibujarMenu();
 void verificarArchivos();
 void cargarDatos(FILE *archivo);
 int validarVendedor(palabra ApellidoVendedor);

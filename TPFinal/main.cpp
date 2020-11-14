@@ -9,17 +9,58 @@
 
 int main()
 {
-      FILE *archivo;
+
+    int exit = 0;
+    int op;
+    FILE *archivo;
+    printf("Cargando archivos...\n");
     verificarArchivos();
-    for(int i = 0 ; i <3 ; i++)
+    printf("Bienvenido \n");
+    while(exit!=1)
     {
-        //cargarDatos(archivo);
+        dibujarMenu();
+        scanf("%d",&op);
+        switch(op)
+        {
+        case 1 :
+
+            verificarArchivos();
+            break;
+        case 2 :
+
+            cargarDatos(archivo);
+            break;
+        case 3:
+
+           listarInfo(archivo);
+           break;
+
+        case 4:
+            palabra apellido;
+            printf("Ingrese apellido \n");
+            scanf("%s",&apellido);
+            listarPolizasVendedor(apellido);
+            break;
+
+        case 5:
+            vendedoresAPremiar();
+            break;
+        case 6:
+            AseguradoPiedra();
+            break;
+
+        case 7:
+            exit=1;
+            printf("Adios \n");
+            break;
+
+        default:
+            printf("Operacion invalida \n");
+        }
+
+
+
     }
 
-    //listarInfo(archivo);
-
-   // listarPolizasVendedor("jorge");
-    vendedoresAPremiar();
-    AseguradoPiedra();
     return 0;
 }

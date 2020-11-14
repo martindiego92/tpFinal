@@ -4,12 +4,27 @@
 
 #include<string.h>
 
+void dibujarMenu()
+{
+    printf("Ingrese una operacion \n");
+    printf("1- Verificar archivos \n");
+    printf("2- Cargar Archivos \n");
+    printf("3- Listar Informacion \n");
+    printf("4- Ver polizas por vendedor \n");
+    printf("5- Listar vendedores a premiar \n");
+    printf("6- Mostrar el aseguradao con el mayor pago de siniestros \n");
+    printf("7- Salir \n");
+}
+
 void listarInfo(FILE *archivo)
 {
     int opcion;
 
-    printf("\nQue base de datos quisiera ver?\n");
-    printf("1: Vendedores\n2: Polizas\n3: Siniestros\n\nOpcion: ");
+    printf("Ingrese una operacion \n");
+    printf("1- Vendedores \n");
+    printf("2- Polizas \n ");
+    printf("3- Siniestros \n");
+
     scanf("%d", &opcion);
 
     switch(opcion)
@@ -20,12 +35,12 @@ void listarInfo(FILE *archivo)
             archivo = fopen("archivos/Vendedores.dat", "rb");
             fread(&vendedor, sizeof(Vendedor), 1, archivo);
 
-            printf("\nID\t Apellido\t Tasa de Rendimiento\n");
+            printf("id       Apellido             Tasa de Rendimiento\n");
 
             while(!feof(archivo))
             {
                 vendedor.TasaRendimiento = calcularTasaRendimiento(vendedor.IDVendedor);
-                printf("%d\t %s\t %.2f\n", vendedor.IDVendedor, vendedor.ApellidoVendedor, vendedor.TasaRendimiento);
+                printf("%d          %s                %.2f\n", vendedor.IDVendedor, vendedor.ApellidoVendedor, vendedor.TasaRendimiento);
                 fread(&vendedor, sizeof(Vendedor), 1, archivo);
             }
             fclose(archivo);
@@ -67,10 +82,12 @@ void listarInfo(FILE *archivo)
 }
 void listarPolizasVendedor(palabra apellido)
 {
+
     FILE *polizasArch;
     FILE *sinietrosArch;
-    int id = validarVendedor(apellido);
 
+
+    int id = validarVendedor(apellido);
     if(id == -1)
     {
         printf("No se encontro apellido \n");
