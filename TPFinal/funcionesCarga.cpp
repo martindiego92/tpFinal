@@ -74,16 +74,42 @@ void cargarDatos(FILE *archivo)
 
 
         Vendedor vendedor;
-        archivo = fopen("archivos/Vendedores.dat","ab");
+        palabra apellido;
+        int id;
+
         printf("\n");
         printf("Ingrese el id del vendedor \n");
-        scanf("%d",&vendedor.IDVendedor);
+        scanf("%d",&id);
+
         printf("Ingrese apellido \n");
-        scanf("%s",&vendedor.ApellidoVendedor);
+        scanf("%s",&apellido);
+
+        int check = valorExisteVendedor(apellido, id);
+        if(check == -1)
+        {
+            printf("El vendedor ya esta cargado en la db");
+            break;
+
+        }
+        else
+        {
+        archivo = fopen("archivos/Vendedores.dat", "ab");
+
+        strcpy(vendedor.ApellidoVendedor, apellido);
+        vendedor.IDVendedor =id;
+
+
 
         fwrite(&vendedor,sizeof(Vendedor),1,archivo);
+        fclose(archivo);
+
+
+        }
+
+
         break;
-         }
+}
+
     case 2:
         {
 
@@ -91,7 +117,7 @@ void cargarDatos(FILE *archivo)
         Poliza poliza;
         palabra apellido;
         int idVendedor = 0;
-
+        int idPoliza = 0;
 
         //despues valido
         printf("Ingrese apellido del vendedor \n");
@@ -100,19 +126,23 @@ void cargarDatos(FILE *archivo)
         if(idVendedor == -1)
             {
                 printf("No existe vendedor \n");
-                //printf("Por favor ingrese nuevamente el apellido \n");
-                //scanf("%s",&apellido);
-                //idVendedor = validarVendedor(apellido);
+
                 break;
 
             }
 
+        else{
+
         archivo = fopen("archivos/Polizas.dat", "ab");
         poliza.IDVendedor = idVendedor;
         printf("Ingrese Nro de poliza: \n");
-        scanf("%d", &poliza.NroPoliza);
+        scanf("%d", &idPoliza);
 
-
+        if(existePoliza(idPoliza)==-1)
+        {
+            printf("El numero de poliza ya esta cargada \n");
+            break;
+        }
 
         printf("Ingrese vombre del asegurado: \n ");
         scanf("%s", poliza.Asegurado);
@@ -127,9 +157,11 @@ void cargarDatos(FILE *archivo)
         scanf("%f", &poliza.ValoAsegurado);
 
         fwrite(&poliza, sizeof(Poliza), 1, archivo);
+          fclose(archivo);
 
-        break;
-               }
+        }
+          break;
+    }
     case 3:
         {
 
@@ -146,6 +178,10 @@ void cargarDatos(FILE *archivo)
             break;
 
         }
+        else
+        {
+
+
         siniestro.NroPoliza = numPoliza;
         printf("Ingrese id del siniestro \n ");
         scanf("%d", &siniestro.IDSiniestro);
@@ -156,14 +192,63 @@ void cargarDatos(FILE *archivo)
         scanf("%f", &siniestro.ValorSiniestrado);
 
         fwrite(&siniestro, sizeof(Siniestro), 1, archivo);
+          fclose(archivo);
 
-
+            }
         break;
     }
-      }
-    fclose(archivo);
-}
 
+    }
+//    fclose(archivo);
+}
+int existePoliza(int idPoliza)
+{
+     FILE *archivo;
+    Poliza poliza;
+
+
+    archivo = fopen("archivos/Polizas.dat", "rb");
+    fread(&poliza, sizeof(Poliza), 1, archivo);
+
+    while(!feof(archivo))
+    {
+
+       if(poliza.NroPoliza == idPoliza)
+       {
+           fclose(archivo);
+            return -1;
+       }
+
+        fread(&poliza, sizeof(Poliza), 1, archivo);
+    }
+
+    fclose(archivo);
+    return 1;
+
+}
+int valorExisteVendedor(palabra apellido, int id)
+{
+     FILE *archivo;
+    Vendedor auxVendedor;
+
+
+    archivo = fopen("archivos/Vendedores.dat", "rb");
+    fread(&auxVendedor, sizeof(Vendedor), 1, archivo);
+
+    while(!feof(archivo))
+    {
+        if(strcmp(apellido, auxVendedor.ApellidoVendedor) == 0 || id == auxVendedor.IDVendedor)
+        {
+            fclose(archivo);
+            return -1;
+
+        }
+        fread(&auxVendedor, sizeof(Vendedor), 1, archivo);
+    }
+
+    fclose(archivo);
+    return 1;
+}
 int validarVendedor(palabra apellido)
 {
      FILE *archivo;

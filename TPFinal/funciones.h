@@ -31,6 +31,7 @@ typedef struct
 
 }Siniestro;
 void dibujarMenu();
+
 void verificarArchivos();
 void cargarDatos(FILE *archivo);
 int validarVendedor(palabra ApellidoVendedor);
@@ -41,4 +42,7 @@ void listarPolizasVendedor(palabra ApellidoVendedor);
 void vendedoresAPremiar();
 void AseguradoPiedra();
 void menuCargaDatos();
+int valorExisteVendedor(palabra, int);
+int existePoliza(int );
+
 #endif // FUNCIONES_H_INCLUDED

@@ -178,7 +178,7 @@ void AseguradoPiedra()
 
         while(!feof(siniestroArch))
         {
-            if(poliza.NroPoliza == siniestro.NroPoliza)
+            if(poliza.NroPoliza == siniestro.NroPoliza )
             {
                 total = siniestro.ValorSiniestrado + total;
             }
