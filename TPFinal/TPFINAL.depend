@@ -7,7 +7,7 @@
 	<stdlib.h>
 	"funciones.h"
 
-1606602540 c:\users\martin\desktop\inspt\programacion1\tp\tpfinal\funciones.h
+1606950932 c:\users\martin\desktop\inspt\programacion1\tp\tpfinal\funciones.h
 
 1606593098 source:c:\users\martin\desktop\inspt\programacion1\tp\tpfinal\main.cpp
 	<stdio.h>
@@ -55,13 +55,13 @@
 	"funciones.h"
 	<string.h>
 
-1606602540 c:\users\martin\desktop\inspt\programacion1\tp\tpfinal\funcioneslistar.cpp
+1606950895 c:\users\martin\desktop\inspt\programacion1\tp\tpfinal\funcioneslistar.cpp
 	<stdio.h>
 	<stdlib.h>
 	"funciones.h"
 	<string.h>
 
-1606602540 c:\users\martin\desktop\inspt\programacion1\tp\tpfinal\funcionescarga.cpp
+1606944871 c:\users\martin\desktop\inspt\programacion1\tp\tpfinal\funcionescarga.cpp
 	<stdio.h>
 	<stdlib.h>
 	"funciones.h"

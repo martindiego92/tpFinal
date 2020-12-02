@@ -31,61 +31,76 @@ void listarInfo(FILE *archivo)
     {
     case 1:
         {
-            Vendedor vendedor;
-            archivo = fopen("archivos/Vendedores.dat", "rb");
-            fread(&vendedor, sizeof(Vendedor), 1, archivo);
 
-            printf("id       Apellido             Tasa de Rendimiento\n");
-
-            while(!feof(archivo))
-            {
-                vendedor.TasaRendimiento = calcularTasaRendimiento(vendedor.IDVendedor);
-                printf("%d          %s                %.2f\n", vendedor.IDVendedor, vendedor.ApellidoVendedor, vendedor.TasaRendimiento);
-                fread(&vendedor, sizeof(Vendedor), 1, archivo);
-            }
-            fclose(archivo);
-
+            listarInfoVendedores(archivo);
             break;
         }
     case 2:
         {
-            Poliza poliza;
-            archivo = fopen("archivos/Polizas.dat", "rb");
-            fread(&poliza, sizeof(Poliza), 1, archivo);
-            printf("NroPoliza | ID Vendedor |  Asegurado |  Marca |  Patente |  ValorAsegurado \n");
-            while(!feof(archivo))
-            {
-                printf(" %d        %d         %s       %s          %s        %.2f \n", poliza.NroPoliza, poliza.IDVendedor, poliza.Asegurado, poliza.Marca, poliza.Patente, poliza.ValoAsegurado);
-                fread(&poliza, sizeof(Poliza), 1, archivo);
-            }
-            fclose(archivo);
+            listarInfoPolizas(archivo);
+
             break;
         }
     case 3:
         {
-            Siniestro siniestro;
-            archivo = fopen("archivos/Siniestros.dat", "rb");
-            fread(&siniestro, sizeof(Siniestro), 1, archivo);
-            printf("ID    Nro Poliza     Valor Siniestrado      ");
+            listarInfoSiniestros(archivo);
 
-            while(!feof(archivo))
-            {
-                printf("%d %d %.2f  \n", siniestro.IDSiniestro, siniestro.NroPoliza, siniestro.ValorSiniestrado);
-                fread(&siniestro, sizeof(Siniestro), 1, archivo);
-            }
-            fclose(archivo);
             break;
         }
     }
 
 
 }
+void listarInfoVendedores(FILE *archivo)
+{
+    Vendedor vendedor;
+    archivo = fopen("archivos/Vendedores.dat", "rb");
+    fread(&vendedor, sizeof(Vendedor), 1, archivo);
+
+    printf("%-5s%-15s%-20s\n", "ID |", " Apellido |", " Tasa de rendimiento |");
+    while(!feof(archivo))
+    {
+        vendedor.TasaRendimiento = calcularTasaRendimiento(vendedor.IDVendedor);
+        printf("%-5d%-15s%-20.2f\n", vendedor.IDVendedor, vendedor.ApellidoVendedor, vendedor.TasaRendimiento);
+        fread(&vendedor, sizeof(Vendedor), 1, archivo);
+    }
+    fclose(archivo);
+}
+void listarInfoPolizas(FILE *archivo)
+{
+
+    Poliza poliza;
+    archivo = fopen("archivos/Polizas.dat", "rb");
+    fread(&poliza, sizeof(Poliza), 1, archivo);
+    printf("%-13s%-15s%-20s%-13s%-15s%-10s\n","Nro Poliza", "ID Vendedor", "Asegurado", "Marca", "Patente", "Valor Asegurado");
+    while(!feof(archivo))
+    {
+        printf("%-13d%-15d%-20s%-13s%-15s%-10.2f\n", poliza.NroPoliza, poliza.IDVendedor, poliza.Asegurado, poliza.Marca, poliza.Patente, poliza.ValoAsegurado);
+        fread(&poliza, sizeof(Poliza), 1, archivo);
+    }
+    fclose(archivo);
+}
+void listarInfoSiniestros(FILE *archivo)
+{
+    Siniestro siniestro;
+    archivo = fopen("archivos/Siniestros.dat", "rb");
+    fread(&siniestro, sizeof(Siniestro), 1, archivo);
+    printf("%-4s%-12s%-20s\n", "ID", "Nro Poliza", "Valor Siniestrado");
+
+
+    while(!feof(archivo))
+    {
+        printf("%-4d%-12d%-20.2f\n", siniestro.IDSiniestro, siniestro.NroPoliza, siniestro.ValorSiniestrado);
+        fread(&siniestro, sizeof(Siniestro), 1, archivo);
+    }
+    fclose(archivo);
+}
 void listarPolizasVendedor(palabra apellido)
 {
 
     FILE *polizasArch;
     FILE *sinietrosArch;
-
+     int cont  = 0;
 
     int id = validarVendedor(apellido);
     if(id == -1)
@@ -94,6 +109,7 @@ void listarPolizasVendedor(palabra apellido)
     }
     else
     {
+
         printf("Vendedor %s \n",apellido);
         Poliza poliza;
         polizasArch = fopen("archivos/Polizas.dat", "rb");
@@ -102,21 +118,23 @@ void listarPolizasVendedor(palabra apellido)
         {
             if(poliza.IDVendedor == id)
             {
-                    printf("NroPoliza |   ID Vendedor |   Asegurado |   Marca |   Patente |   ValorAsegurado \n");
 
-            printf("   %d            %d           %s         %s          %s        %.2f \n", poliza.NroPoliza, poliza.IDVendedor, poliza.Asegurado, poliza.Marca, poliza.Patente, poliza.ValoAsegurado);
+            printf("\n%-13s%-15s%-20s%-13s%-15s%-10s\n","Nro Poliza|", "ID Vendedor|", "Asegurado|", "Marca|", "Patente|", "Valor Asegurado|");
+            printf("%-13d%-15d%-20s%-13s%-15s%-10.2f\n", poliza.NroPoliza, poliza.IDVendedor, poliza.Asegurado, poliza.Marca, poliza.Patente, poliza.ValoAsegurado);
 
             Siniestro siniestro;
             sinietrosArch = fopen("archivos/Siniestros.dat", "rb");
             fread(&siniestro, sizeof(Siniestro), 1, sinietrosArch);
-             printf("ID    Nro Poliza     Valor Siniestrado   \n");
+            cont++;
+
             while(!feof(sinietrosArch))
             {
 
 
                 if(poliza.NroPoliza == siniestro.NroPoliza)
                 {
-                printf("%d          %d           %.2f  \n", siniestro.IDSiniestro, siniestro.NroPoliza, siniestro.ValorSiniestrado);
+                printf("%-4s%-12s%-20s\n", "ID", "Nro Poliza", "Valor Siniestrado");
+                printf("%-4d%-12d%-20.2f\n", siniestro.IDSiniestro, siniestro.NroPoliza, siniestro.ValorSiniestrado);
 
                 }
                   fread(&siniestro, sizeof(Siniestro), 1, sinietrosArch);
@@ -131,6 +149,10 @@ void listarPolizasVendedor(palabra apellido)
         }
         fclose(polizasArch);
     }
+    if(cont==0)
+    {
+        printf("El vendedor no posee ninguna informacion para mostrar \n");
+    }
 
 }
 void vendedoresAPremiar()
@@ -144,9 +166,10 @@ void vendedoresAPremiar()
     while(!feof(vendedoresArchi))
     {
         int id = calcularTasaRendimiento(vendedor.IDVendedor);
-        if( id< 5 && id>0)
+        if( id > 5 && id>0)
         {
             printf(" %d", vendedor.IDVendedor);
+            printf("%s \n",vendedor.ApellidoVendedor);
             cont++;
         }
         fread(&vendedor, sizeof(Vendedor), 1, vendedoresArchi);
@@ -200,5 +223,5 @@ void AseguradoPiedra()
 
     fclose(polizaArch);
     printf("Asegurado al que mas dinero debe pagarse \n");
-    printf("Asegurado : %s NrPoliza: %d  Total: %2.f $",asegurado,nrPoliza,maX);
+    printf("Asegurado : %s NrPoliza: %d  Total: %2.f $ \n",asegurado,nrPoliza,maX);
 }

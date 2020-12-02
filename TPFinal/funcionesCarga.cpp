@@ -4,51 +4,63 @@
 #include<string.h>
 void verificarArchivos()
 {
-
     FILE *archivo;
-
+    validarArchivoVendedores(archivo);
+    validarArchivoPoliza(archivo);
+    validarArchivoSiniestros(archivo);
+}
+void validarArchivoVendedores( FILE *archivo)
+{
     archivo = fopen("archivos/Vendedores.dat", "rb");
 
     if(!archivo)
     {
         archivo = fopen("archivos/Vendedores.dat", "wb");
-        printf("Se creo el archivo \n");
+        printf("Se creo el archivo Vendedores\n");
     }
     else
     {
-        printf(" Ya existe el archivo\n");
+        printf(" Ya existe el archivo Vendedores\n");
     }
 
     fclose(archivo);
+}
+void validarArchivoPoliza(FILE *archivo)
+{
 
     archivo = fopen("archivos/Polizas.dat", "rb");
 
     if(!archivo)
     {
         archivo = fopen("archivos/Polizas.dat", "wb");
-        printf("Se creo el archivo \n");
+        printf("Se creo el archivo Polizas \n");
     }
     else
     {
-        printf(" Ya existe el archivo\n");
-    }
-
-    fclose(archivo);
-
-    archivo = fopen("archivos/Siniestros.dat", "rb");
-
-    if(!archivo)
-    {
-        archivo = fopen("archivos/Siniestros.dat", "wb");
-        printf("Se creo el archivo \n");
-    }
-    else
-    {
-        printf(" Ya existe el archivo\n");
+        printf(" Ya existe el archivo Polizas\n");
     }
 
     fclose(archivo);
 }
+void validarArchivoSiniestros(FILE *archivo)
+{
+     archivo = fopen("archivos/Siniestros.dat", "rb");
+
+    if(!archivo)
+    {
+        archivo = fopen("archivos/Siniestros.dat", "wb");
+        printf("Se creo el archivo Siniestros \n");
+    }
+    else
+    {
+        printf(" Ya existe el archivo Siniestros\n");
+    }
+
+    fclose(archivo);
+}
+
+
+
 void menuCargaDatos()
 {
     printf("Opciones \n");
@@ -60,6 +72,7 @@ void cargarDatos(FILE *archivo)
 {
     int op;
     menuCargaDatos();
+
     scanf("%d",&op);
     while(op>3 || op<1)
     {
@@ -71,11 +84,30 @@ void cargarDatos(FILE *archivo)
     {
     case 1:
         {
+        cargarVendedor(archivo);
+        break;
+        }
 
+    case 2:
+        {
+        cargarPoliza(archivo);
+        break;
+        }
 
-        Vendedor vendedor;
+    case 3:
+        {
+        cargarSiniestro(archivo);
+        break;
+        }
+
+    }
+
+}
+void cargarVendedor(FILE *archivo)
+{
+       Vendedor vendedor;
         palabra apellido;
-        int id;
+        int id = 0;
 
         printf("\n");
         printf("Ingrese el id del vendedor \n");
@@ -88,7 +120,7 @@ void cargarDatos(FILE *archivo)
         if(check == -1)
         {
             printf("El vendedor ya esta cargado en la db");
-            break;
+
 
         }
         else
@@ -106,20 +138,15 @@ void cargarDatos(FILE *archivo)
 
         }
 
-
-        break;
 }
-
-    case 2:
-        {
-
-
-        Poliza poliza;
+void cargarPoliza(FILE *archivo)
+{
+      Poliza poliza;
         palabra apellido;
         int idVendedor = 0;
         int idPoliza = 0;
 
-        //despues valido
+
         printf("Ingrese apellido del vendedor \n");
         scanf("%s",&apellido);
         idVendedor = validarVendedor(apellido);
@@ -127,7 +154,7 @@ void cargarDatos(FILE *archivo)
             {
                 printf("No existe vendedor \n");
 
-                break;
+
 
             }
 
@@ -141,8 +168,13 @@ void cargarDatos(FILE *archivo)
         if(existePoliza(idPoliza)==-1)
         {
             printf("El numero de poliza ya esta cargada \n");
-            break;
+
         }
+        else
+        {
+
+
+        poliza.NroPoliza = idPoliza;
 
         printf("Ingrese vombre del asegurado: \n ");
         scanf("%s", poliza.Asegurado);
@@ -157,15 +189,13 @@ void cargarDatos(FILE *archivo)
         scanf("%f", &poliza.ValoAsegurado);
 
         fwrite(&poliza, sizeof(Poliza), 1, archivo);
-          fclose(archivo);
-
+        fclose(archivo);
         }
-          break;
-    }
-    case 3:
-        {
 
-
+}
+}
+void cargarSiniestro(FILE *archivo)
+{
         Siniestro siniestro;
         int numPoliza;
         archivo = fopen("archivos/Siniestros.dat", "ab");
@@ -175,7 +205,7 @@ void cargarDatos(FILE *archivo)
         if(validarPoliza(numPoliza) != 1)
         {
             printf("Numero de poliza no se encusntra\n");
-            break;
+
 
         }
         else
@@ -192,14 +222,9 @@ void cargarDatos(FILE *archivo)
         scanf("%f", &siniestro.ValorSiniestrado);
 
         fwrite(&siniestro, sizeof(Siniestro), 1, archivo);
-          fclose(archivo);
+        fclose(archivo);
 
             }
-        break;
-    }
-
-    }
-//    fclose(archivo);
 }
 int existePoliza(int idPoliza)
 {
